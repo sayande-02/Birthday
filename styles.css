@@ -1,0 +1,138 @@
+:root {
+  --mint-bg: #e8fdf5;
+  --white: #ffffff;
+  --mint-text: #2b6d5f;
+  --accent-green: #6fbf73;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, var(--mint-bg), var(--white));
+  color: var(--mint-text);
+  overflow-x: hidden;
+}
+
+.container {
+  max-width: 800px;
+  margin: auto;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+h1, h2 {
+  font-family: 'Playfair Display', serif;
+}
+
+#countdown {
+  font-size: 1.4em;
+  background: var(--white);
+  color: var(--mint-text);
+  padding: 15px 25px;
+  border-radius: 15px;
+  display: inline-block;
+  margin-bottom: 40px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.message {
+  background: #ffffffee;
+  border: 1px solid #cdeae0;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  font-size: 1.1em;
+  line-height: 1.6;
+}
+
+.footer {
+  margin-top: 60px;
+  font-size: 0.9em;
+  color: #888;
+}
+
+.falling {
+  position: fixed;
+  top: -50px;
+  font-size: 24px;
+  animation: fall linear infinite;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+@keyframes fall {
+  0%   { transform: translateY(-50px) rotate(0deg);   opacity: 1; }
+  100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+}
+
+.modal-content {
+  background: var(--white);
+  max-width: 500px;
+  width: 100%;
+  padding: 40px 30px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  animation: pop 0.4s ease;
+  z-index: 1;
+  position: relative;
+}
+
+#fireworks-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+#birthday-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 10000;
+}
+
+@keyframes pop {
+  0%   { transform: scale(0.8); opacity: 0; }
+  100% { transform: scale(1);   opacity: 1; }
+}
+
+.modal-content h1 {
+  margin: 0 0 10px;
+  font-size: 2.4em;
+  color: var(--accent-green);
+}
+
+.modal-content p {
+  margin: 0 0 25px;
+  font-size: 1.2em;
+  color: var(--mint-text);
+}
+
+#modal-close {
+  background: var(--accent-green);
+  color: #fff;
+  border: none;
+  padding: 10px 30px;
+  font-size: 1em;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background 0.25s;
+}
+
+#modal-close:hover {
+  background: #5aa961;
+}
+
+@media (max-width: 600px) {
+  .message { font-size: 1em; }
+  .modal-content h1 { font-size: 1.9em; }
+}
