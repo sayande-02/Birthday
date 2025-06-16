@@ -329,7 +329,7 @@ const addAnotherBtn      = document.getElementById("add-another");
 const memoriesContainer  = document.getElementById("memories-container");
 const birthdayMemories   = document.getElementById("birthday-memories");
 
-function saveMemory(name, message) {
+/*function saveMemory(name, message) {
   fetch("https://script.google.com/macros/s/AKfycbwEvLabYXcPYKvpdrz64GxOudXKs4g40qsswe56zDdChaR4mY9tDOagWFsUWKQoYHu93A/exec", {
     mode : 'no-cors',
     method: "POST",
@@ -352,7 +352,7 @@ function saveMemory(name, message) {
       console.error(err);
       alert("Error connecting to server.");
     });
-}
+}*/
 
 
 // ── Render cards on her birthday ───────────────────────────
@@ -381,12 +381,12 @@ function saveMemory(name, message) {
 
 // ── Form submission ────────────────────────────────────────
 contributionForm.addEventListener("submit", function (e) {
-  e.preventDefault();
-  const name = document.getElementById("friend-name").value.trim();
-  const message = document.getElementById("memory-message").value.trim();
-  if (!name || !message) return;
-  saveMemory(name, message);
+  e.preventDefault(); // stop redirect
+  contributionForm.style.display = "none";
+  successMessage.style.display = "block";
+  contributionForm.reset();
 });
+
 
 
 // ── “Add another” button ───────────────────────────────────
