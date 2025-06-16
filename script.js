@@ -379,13 +379,35 @@ const birthdayMemories   = document.getElementById("birthday-memories");
   birthdayMemories.style.display = "block";
 }*/
 
-// ── Form submission ────────────────────────────────────────
+// ── Form submission ────
 contributionForm.addEventListener("submit", function (e) {
-  e.preventDefault(); // stop redirect
-  contributionForm.style.display = "none";
-  successMessage.style.display = "block";
-  contributionForm.reset();
+  e.preventDefault(); // Prevent page reload
+
+  const formData = new FormData(contributionForm);
+
+  fetch("https://formspree.io/f/xgvyyqbe", {
+    method: "POST",
+    body: formData,
+    headers: {
+      "Accept": "application/json"
+    }
+  })
+  .then(response => {
+    if (response.ok) {
+      // Show your custom thank-you message
+      contributionForm.style.display = "none";
+      successMessage.style.display = "block";
+      contributionForm.reset();
+    } else {
+      alert("Oops! Something went wrong. Please try again.");
+    }
+  })
+  .catch(error => {
+    console.error("Form submission error:", error);
+    alert("Network error — please try again later.");
+  });
 });
+
 
 
 
