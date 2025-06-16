@@ -320,3 +320,82 @@ document.addEventListener("DOMContentLoaded", () => {
   if (isBirthday || simulateBirthday) { startCelebration(); }
   modalCloseBtn.addEventListener("click", stopCelebration);
 });
+
+/* ---------- FRIEND CONTRIBUTION LOGIC (no‑image) ---------- */
+const contributionForm   = document.getElementById("contribution-form");
+const contributionSection = document.getElementById("contribution-section");
+const successMessage     = document.getElementById("contribution-success");
+const addAnotherBtn      = document.getElementById("add-another");
+const memoriesContainer  = document.getElementById("memories-container");
+const birthdayMemories   = document.getElementById("birthday-memories");
+
+function saveMemory(name, message) {
+  fetch("https://script.google.com/macros/s/AKfycbxz0VlA2B326E_uYTm3BMFyfBNiPYNWbAzCWyumt5F1WSPuBtkBYkzzY6NewKbXnmLHpQ/exec", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ name, message }),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.status === "success") {
+        contributionForm.style.display = "none";
+        successMessage.style.display = "block";
+        contributionForm.reset();
+      } else {
+        alert("Something went wrong. Try again!");
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      alert("Error connecting to server.");
+    });
+}
+
+
+// ── Render cards on her birthday ───────────────────────────
+/*function displayMemories() {
+  const memories = loadMemories();
+  if (memories.length === 0) return;
+
+  memoriesContainer.innerHTML = "";
+  memories.forEach(({ name, message }) => {
+    const card  = document.createElement("div");
+    card.className = "memory-card";
+
+    const title = document.createElement("h4");
+    title.textContent = name;
+
+    const msg   = document.createElement("p");
+    msg.textContent = message;
+
+    card.appendChild(title);
+    card.appendChild(msg);
+    memoriesContainer.appendChild(card);
+  });
+
+  birthdayMemories.style.display = "block";
+}*/
+
+// ── Form submission ────────────────────────────────────────
+contributionForm.addEventListener("submit", function (e) {
+  e.preventDefault();
+  const name = document.getElementById("friend-name").value.trim();
+  const message = document.getElementById("memory-message").value.trim();
+  if (!name || !message) return;
+  saveMemory(name, message);
+});
+
+
+// ── “Add another” button ───────────────────────────────────
+addAnotherBtn.addEventListener("click", () => {
+  successMessage.style.display = "none";
+  contributionForm.style.display = "block";
+});
+
+// ── Show memories only on 15 July ─────────────────────────
+/*if (isBirthday || simulateBirthday) {
+  contributionSection.style.display = "none";
+  displayMemories();
+}*/
