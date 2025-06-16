@@ -5,8 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Happy Birthday Dishu</title>
 
-  <!-- Google Fonts -->
+  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+  
+  <!-- External CSS -->
+  <link rel="stylesheet" href="styles.css" />
 
   <style>
     :root {
@@ -22,8 +25,15 @@
       margin: 0;
       font-family: 'Poppins', sans-serif;
       background: linear-gradient(135deg, var(--mint-bg), var(--white));
+      background-size: 400% 400%;
+      animation: gradient-shift 15s ease infinite;
       color: var(--mint-text);
       overflow-x: hidden;
+    }
+    @keyframes gradient-shift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
     .container {
@@ -35,16 +45,6 @@
 
     h1, h2 { font-family: 'Playfair Display', serif; }
 
-    #countdown {
-      font-size: 1.4em;
-      background: var(--white);
-      color: var(--mint-text);
-      padding: 15px 25px;
-      border-radius: 15px;
-      display: inline-block;
-      margin-bottom: 40px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    }
 
     .message {
       background: #ffffffee;
@@ -54,6 +54,28 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.05);
       font-size: 1.1em;
       line-height: 1.6;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    .message:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 24px rgba(107, 191, 115, 0.15);
+    }
+    .message::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent, rgba(107, 191, 115, 0.1), transparent);
+      animation: shimmer 4s ease-in-out infinite;
+      pointer-events: none;
+    }
+    @keyframes shimmer {
+      0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+      100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
     }
 
     .footer {
@@ -62,7 +84,7 @@
       color: #888;
     }
 
-    /* Falling emoji */
+    /* Enhanced Falling Animations */
     .falling {
       position: fixed;
       top: -50px;
@@ -74,6 +96,56 @@
     @keyframes fall {
       0%   { transform: translateY(-50px) rotate(0deg);   opacity: 1; }
       100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+    }
+
+    /* Floating Hearts */
+    .floating-heart {
+      position: fixed;
+      bottom: -50px;
+      font-size: 20px;
+      animation: float-up linear infinite;
+      z-index: 9998;
+      pointer-events: none;
+      color: #ff69b4;
+    }
+    @keyframes float-up {
+      0%   { transform: translateY(0) rotate(0deg) scale(1); opacity: 0.8; }
+      50%  { opacity: 1; }
+      100% { transform: translateY(-100vh) rotate(180deg) scale(0.5); opacity: 0; }
+    }
+
+    /* Sparkle Effect */
+    .sparkle {
+      position: fixed;
+      width: 4px;
+      height: 4px;
+      background: #ffd700;
+      border-radius: 50%;
+      animation: sparkle-twinkle 2s linear infinite;
+      z-index: 9997;
+      pointer-events: none;
+    }
+    @keyframes sparkle-twinkle {
+      0%, 100% { opacity: 0; transform: scale(0); }
+      50% { opacity: 1; transform: scale(1); }
+    }
+
+    /* Background Particles */
+    .particle {
+      position: fixed;
+      width: 2px;
+      height: 2px;
+      background: rgba(107, 191, 115, 0.3);
+      border-radius: 50%;
+      animation: drift linear infinite;
+      z-index: 1;
+      pointer-events: none;
+    }
+    @keyframes drift {
+      0%   { transform: translateY(100vh) translateX(0); opacity: 0; }
+      10%  { opacity: 1; }
+      90%  { opacity: 1; }
+      100% { transform: translateY(-100px) translateX(100px); opacity: 0; }
     }
 
     /* Birthday modal */
@@ -106,17 +178,26 @@
       border-radius: 20px;
       text-align: center;
       box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-      animation: pop 0.4s ease;
+      animation: dramatic-entrance 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
-    @keyframes pop {
-      0%   { transform: scale(0.8); opacity: 0; }
-      100% { transform: scale(1);   opacity: 1; }
+    @keyframes dramatic-entrance {
+      0%   { transform: scale(0.3) rotate(-10deg); opacity: 0; }
+      50%  { transform: scale(1.1) rotate(5deg); opacity: 0.8; }
+      100% { transform: scale(1) rotate(0deg); opacity: 1; }
     }
 
     .modal-content h1 {
       margin: 0 0 10px;
       font-size: 2.4em;
       color: var(--accent-green);
+      animation: rainbow-text 3s ease-in-out infinite;
+      text-shadow: 0 0 20px rgba(107, 191, 115, 0.5);
+    }
+    @keyframes rainbow-text {
+      0%, 100% { color: var(--accent-green); }
+      25% { color: #ff69b4; }
+      50% { color: #ffd700; }
+      75% { color: #87ceeb; }
     }
     .modal-content p  {
       margin: 0 0 25px;
@@ -131,8 +212,31 @@
       font-size: 1em;
       border-radius: 30px;
       cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
     }
-    #modal-close:hover { background: #5aa961; }
+    #modal-close:hover { 
+      background: #5aa961;
+      transform: scale(1.1);
+      box-shadow: 0 4px 16px rgba(107, 191, 115, 0.4);
+    }
+    #modal-close::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      transition: all 0.5s ease;
+      transform: translate(-50%, -50%);
+    }
+    #modal-close:hover::before {
+      width: 300px;
+      height: 300px;
+    }
 
     @media (max-width: 600px){
       .message { font-size: 1em; }
@@ -155,15 +259,84 @@
 
   <!-- Main content -->
   <div class="container">
-    <div id="countdown">Loading countdown…</div>
+    <div id="countdown">
+      <div class="countdown-title">💖 Countdown to Dishu's Special Day 💖</div>
+      <div class="countdown-container">
+        <div class="time-unit">
+          <div class="flip-card" id="days-card">
+            <div class="flip-current" id="days-current">00</div>
+            <div class="flip-next" id="days-next">00</div>
+          </div>
+          <div class="time-label">Days</div>
+        </div>
+        
+        <div class="time-unit">
+          <div class="flip-card" id="hours-card">
+            <div class="flip-current" id="hours-current">00</div>
+            <div class="flip-next" id="hours-next">00</div>
+          </div>
+          <div class="time-label">Hours</div>
+        </div>
+        
+        <div class="time-unit">
+          <div class="flip-card" id="minutes-card">
+            <div class="flip-current" id="minutes-current">00</div>
+            <div class="flip-next" id="minutes-next">00</div>
+          </div>
+          <div class="time-label">Minutes</div>
+        </div>
+        
+        <div class="time-unit">
+          <div class="flip-card" id="seconds-card">
+            <div class="flip-current" id="seconds-current">00</div>
+            <div class="flip-next" id="seconds-next">00</div>
+          </div>
+          <div class="time-label">Seconds</div>
+        </div>
+      </div>
+      <div class="countdown-subtitle">Until July 15th, 2025</div>
+    </div>
 
     <div class="message">
-      On the auspicious day, I would want to tell you how incredibly lucky I am to have you in my life.  
-      Your smile, your heart, your soul — everything about you makes my world brighter.
-      <br><br>
-      This page is just the beginning—a little corner of the internet made just for you.  
-      There’s so much more in store, but for today, just know this:  
-      you are deeply loved, now and always.
+      <div id="typewriter-text"></div>
+    </div>
+
+    <!-- Friend Contribution Section -->
+    <div id="contribution-section" class="contribution-section">
+      <h2>💝 Share a Birthday Memory for Dishu</h2>
+      <p>Add your special message or photo for Dishu's birthday surprise!</p>
+      
+      <form id="contribution-form" class="contribution-form">
+        <div class="form-group">
+          <label for="friend-name">Your Name:</label>
+          <input type="text" id="friend-name" placeholder="Enter your name" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="memory-message">Birthday Message:</label>
+          <textarea id="memory-message" placeholder="Write your birthday message for Dishu..." rows="4"></textarea>
+        </div>
+        
+        <div class="form-group">
+          <label for="memory-photo">Add a Photo (optional):</label>
+          <input type="file" id="memory-photo" accept="image/*">
+          <div id="photo-preview"></div>
+        </div>
+        
+        <button type="submit" class="submit-btn">🎁 Add to Birthday Surprise</button>
+      </form>
+      
+      <div id="contribution-success" class="contribution-success" style="display: none;">
+        <h3>✨ Thank you!</h3>
+        <p>Your birthday memory has been saved! It will be revealed on Dishu's special day (July 15th).</p>
+        <button id="add-another" class="add-another-btn">Add Another Memory</button>
+      </div>
+    </div>
+
+    <!-- Birthday Memory Display (only visible on birthday) -->
+    <div id="birthday-memories" class="birthday-memories" style="display: none;">
+      <h2>💖 Birthday Messages from Friends 💖</h2>
+      <div id="memories-container" class="memories-container"></div>
     </div>
 
     <div class="footer">
