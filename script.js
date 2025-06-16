@@ -330,7 +330,7 @@ const memoriesContainer  = document.getElementById("memories-container");
 const birthdayMemories   = document.getElementById("birthday-memories");
 
 function saveMemory(name, message) {
-  fetch("https://script.google.com/macros/s/AKfycbxz0VlA2B326E_uYTm3BMFyfBNiPYNWbAzCWyumt5F1WSPuBtkBYkzzY6NewKbXnmLHpQ/exec", {
+  fetch("https://script.google.com/macros/s/AKfycbwEvLabYXcPYKvpdrz64GxOudXKs4g40qsswe56zDdChaR4mY9tDOagWFsUWKQoYHu93A/exec", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
