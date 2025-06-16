@@ -331,6 +331,7 @@ const birthdayMemories   = document.getElementById("birthday-memories");
 
 function saveMemory(name, message) {
   fetch("https://script.google.com/macros/s/AKfycbwEvLabYXcPYKvpdrz64GxOudXKs4g40qsswe56zDdChaR4mY9tDOagWFsUWKQoYHu93A/exec", {
+    mode : 'no-cors',
     method: "POST",
     headers: {
       "Content-Type": "application/json",
