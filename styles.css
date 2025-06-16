@@ -28,15 +28,170 @@ h1, h2 {
   font-family: 'Playfair Display', serif;
 }
 
+/* Vintage Flip Clock Countdown */
 #countdown {
-  font-size: 1.4em;
-  background: var(--white);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 50px;
+  font-family: 'Courier New', monospace;
+}
+
+.countdown-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8em;
   color: var(--mint-text);
-  padding: 15px 25px;
-  border-radius: 15px;
-  display: inline-block;
-  margin-bottom: 40px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  margin-bottom: 25px;
+  text-align: center;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.countdown-container {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+.time-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  perspective: 200px;
+}
+
+.flip-card {
+  position: relative;
+  width: 80px;
+  height: 100px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  background: #ffffff;
+  border: 2px solid #e0f2fe;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  overflow: hidden;
+}
+
+/* Current number display */
+.flip-current {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.2em;
+  font-weight: bold;
+  color: var(--mint-text);
+  background: linear-gradient(145deg, #ffffff, #f0f9ff);
+  z-index: 2;
+}
+
+/* Next number (hidden behind current) */
+.flip-next {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.2em;
+  font-weight: bold;
+  color: var(--mint-text);
+  background: linear-gradient(145deg, #f8fafc, #e2e8f0);
+  z-index: 1;
+}
+
+/* Flip animation */
+.flip-card.flipping .flip-current {
+  animation: flip-out 0.3s ease-in forwards;
+}
+
+.flip-card.flipping .flip-next {
+  animation: flip-in 0.3s ease-out 0.3s forwards;
+}
+
+@keyframes flip-out {
+  0% { transform: rotateX(0deg); }
+  100% { transform: rotateX(-90deg); }
+}
+
+@keyframes flip-in {
+  0% { transform: rotateX(90deg); }
+  100% { transform: rotateX(0deg); }
+}
+
+/* Flip animation */
+.flip-card.flipping .flip-top {
+  transform: rotateX(-90deg);
+  transition: transform 0.3s ease-in;
+}
+
+/* Center crease line */
+.flip-card::after {
+  content: '';
+  position: absolute;
+  top: 48%;
+  left: 4px;
+  right: 4px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(0,0,0,0.3), transparent);
+  z-index: 10;
+  pointer-events: none;
+}
+
+/* Enhanced shadows */
+.flip-card:hover {
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
+}
+
+.flip-card.flipping {
+  z-index: 10;
+}
+
+.flip-card.flipping .flip-top {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.flip-card:hover {
+  transform: scale(1.05) rotateX(5deg);
+  transition: transform 0.3s ease;
+}
+
+.time-label {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.9em;
+  color: var(--mint-text);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 5px;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.countdown-subtitle {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2em;
+  color: var(--accent-green);
+  font-style: italic;
+  text-align: center;
+  margin-top: 15px;
+}
+
+/* Glow effect for special moments */
+.countdown-container.almost-birthday {
+  animation: birthday-glow 2s ease-in-out infinite;
+}
+
+@keyframes birthday-glow {
+  0%, 100% { filter: drop-shadow(0 0 5px rgba(107, 191, 115, 0.3)); }
+  50% { filter: drop-shadow(0 0 20px rgba(107, 191, 115, 0.6)); }
 }
 
 .message {
@@ -47,6 +202,196 @@ h1, h2 {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   font-size: 1.1em;
   line-height: 1.6;
+}
+
+/* Friend Contribution Section */
+.contribution-section {
+  background: #ffffffee;
+  border: 1px solid #cdeae0;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  margin: 40px 0;
+  transition: all 0.3s ease;
+}
+
+.contribution-section:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(107, 191, 115, 0.15);
+}
+
+.contribution-section h2 {
+  color: var(--accent-green);
+  margin-bottom: 10px;
+  font-size: 1.8em;
+}
+
+.contribution-section p {
+  color: var(--mint-text);
+  margin-bottom: 30px;
+  font-size: 1.1em;
+}
+
+.contribution-form {
+  text-align: left;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.form-group {
+  margin-bottom: 25px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: var(--mint-text);
+  font-size: 1em;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #e0f2fe;
+  border-radius: 10px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1em;
+  transition: all 0.3s ease;
+  background: #ffffff;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--accent-green);
+  box-shadow: 0 0 0 3px rgba(107, 191, 115, 0.1);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+#photo-preview {
+  margin-top: 15px;
+  text-align: center;
+}
+
+#photo-preview img {
+  max-width: 200px;
+  max-height: 200px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.submit-btn {
+  background: linear-gradient(45deg, var(--accent-green), #5aa961);
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  font-size: 1.1em;
+  font-weight: 600;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(107, 191, 115, 0.3);
+  background: linear-gradient(45deg, #5aa961, var(--accent-green));
+}
+
+.contribution-success {
+  text-align: center;
+  padding: 30px;
+  background: linear-gradient(135deg, #d4f5d4, #e8fdf5);
+  border-radius: 15px;
+  border: 2px solid var(--accent-green);
+}
+
+.contribution-success h3 {
+  color: var(--accent-green);
+  margin-bottom: 15px;
+  font-size: 1.5em;
+}
+
+.contribution-success p {
+  color: var(--mint-text);
+  margin-bottom: 20px;
+}
+
+.add-another-btn {
+  background: var(--accent-green);
+  color: white;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.add-another-btn:hover {
+  background: #5aa961;
+  transform: scale(1.05);
+}
+
+/* Birthday Memories Display */
+.birthday-memories {
+  margin: 40px 0;
+  text-align: center;
+}
+
+.birthday-memories h2 {
+  color: var(--accent-green);
+  font-size: 2em;
+  margin-bottom: 30px;
+}
+
+.memories-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+  margin-top: 30px;
+}
+
+.memory-card {
+  background: #ffffff;
+  border: 2px solid #e0f2fe;
+  border-radius: 15px;
+  padding: 25px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  text-align: left;
+}
+
+.memory-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px rgba(107, 191, 115, 0.2);
+}
+
+.memory-card h4 {
+  color: var(--accent-green);
+  margin-bottom: 15px;
+  font-size: 1.3em;
+}
+
+.memory-card p {
+  color: var(--mint-text);
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+.memory-photo {
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-top: 15px;
 }
 
 .footer {
@@ -132,7 +477,38 @@ h1, h2 {
   background: #5aa961;
 }
 
+/* Responsive design for flip clock */
 @media (max-width: 600px) {
+  .countdown-container {
+    gap: 15px;
+  }
+  .flip-card {
+    width: 65px;
+    height: 85px;
+  }
+  .flip-card-front, .flip-card-back {
+    font-size: 1.8em;
+  }
+  .countdown-title {
+    font-size: 1.4em;
+  }
   .message { font-size: 1em; }
   .modal-content h1 { font-size: 1.9em; }
+}
+
+@media (max-width: 480px) {
+  .countdown-container {
+    gap: 10px;
+  }
+  .time-unit {
+    flex: 1;
+    min-width: 70px;
+  }
+  .flip-card {
+    width: 60px;
+    height: 80px;
+  }
+  .flip-card-front, .flip-card-back {
+    font-size: 1.6em;
+  }
 }
