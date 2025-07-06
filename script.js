@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   /* ---------- CONFIG ---------- */
-  const simulateBirthday = false;            // true = test mode
+  const simulateBirthday = true;            // true = test mode
   const birthdayDateStr  = "2025-07-15T00:00:00";
 
   /* ---------- TEXT ANIMATION ---------- */
