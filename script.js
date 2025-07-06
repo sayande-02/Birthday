@@ -1,14 +1,26 @@
 document.addEventListener("DOMContentLoaded", () => {
   /* ---------- CONFIG ---------- */
-  const simulateBirthday = false;            // true = test mode
+  const simulateBirthday = true;            // true = test mode
   const birthdayDateStr  = "2025-07-15T00:00:00";
 
   /* ---------- TEXT ANIMATION ---------- */
   const typewriterTextEl = document.getElementById("typewriter-text");
-  const message = "On the auspicious day, I would want to tell you how incredibly lucky I am to have you in my life. Your smile, your heart, your soul — everything about you makes my world brighter. This page is just the beginning—a little corner of the internet made just for you. There's so much more in store, but for today, just know this: you are deeply loved, now and always.";
+  
+  // Different messages for birthday vs regular days
+  const regularMessage = "On the auspicious day, I would want to tell you how incredibly lucky I am to have you in my life. Your smile, your heart, your soul — everything about you makes my world brighter. This page is just the beginning—a little corner of the internet made just for you. There's so much more in store, but for today, just know this: you are deeply loved, now and always.";
+  const birthdayMessage = "Happy Birthday Dishu! 🎉 Today is your special day, and I want you to know how incredibly lucky I am to have you in my life. Your smile, your heart, your soul — everything about you makes my world brighter. You are deeply loved, now and always.";
+  
   let index = 0;
 
   function typeWriterEffect() {
+    // Check if it's birthday first (considering simulateBirthday flag OR actual birthday)
+    const today = new Date();
+    const birthday = new Date("2025-07-15T00:00:00");
+    const isActualBirthday = today.getDate() === birthday.getDate() && today.getMonth() === birthday.getMonth();
+    const isBirthdayToday = simulateBirthday || isActualBirthday;
+    
+    const message = isBirthdayToday ? birthdayMessage : regularMessage;
+    
     if (index < message.length) {
       typewriterTextEl.textContent += message.charAt(index);
       index++;
@@ -21,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function createFloatingHeart() {
     const el = document.createElement("div");
     el.className = "floating-heart";
-    el.textContent = "💖"; // Using your original heart emoji
+    el.textContent = "🌻"; // Using your original heart emoji
     el.style.left = Math.random() * 100 + "vw";
     el.style.animationDuration = 5 + Math.random() * 5 + "s";
     el.style.fontSize = 15 + Math.random() * 10 + "px";
@@ -157,15 +169,68 @@ document.addEventListener("DOMContentLoaded", () => {
   const modalEl       = document.getElementById("birthday-modal");
   const modalCloseBtn = document.getElementById("modal-close");
   const birthdayAudio = document.getElementById("birthday-audio");
+  const birthdaySong  = document.getElementById("birthday-song");
 
   /* ---------- AUDIO ---------- */
-  birthdayAudio.play().catch(() => {
-  // autoplay blocked – wait for user interaction
-  document.body.addEventListener("click", () => {
+  console.log('Audio setup - isBirthday:', isBirthday, 'simulateBirthday:', simulateBirthday);
+  
+  // Stop all audio first
+  birthdayAudio.pause();
+  birthdaySong.pause();
+  birthdayAudio.currentTime = 0;
+  birthdaySong.currentTime = 0;
+  
+  // Update audio status display
+  const audioStatus = document.getElementById('audio-status');
+  const currentSong = document.getElementById('current-song');
+  const currentMode = document.getElementById('current-mode');
+  
+  if (isBirthday || simulateBirthday) {
+    console.log('Playing birthday song: birthday-song.mp3');
+    // On birthday: stop regular audio, play birthday song
+    birthdayAudio.muted = true;
+    birthdaySong.muted = false;
+    
+    // Update status display
+    if (audioStatus && currentSong && currentMode) {
+      audioStatus.style.display = 'block';
+      currentSong.textContent = 'birthday-song.mp3';
+      currentMode.textContent = 'Birthday Mode 🎉';
+    }
+    
+    // Play birthday song
+    birthdaySong.play().catch(() => {
+      console.log('Birthday song autoplay blocked, waiting for user click');
+      // autoplay blocked – wait for user interaction
+      document.body.addEventListener("click", () => {
+        console.log('User clicked, starting birthday song');
+        birthdaySong.muted = false;
+        birthdaySong.play();
+      }, { once: true });
+    });
+  } else {
+    console.log('Playing regular music: audio.mp3');
+    // Regular days: play background music, keep birthday song muted
+    birthdaySong.muted = true;
     birthdayAudio.muted = false;
-    birthdayAudio.play();
-  }, { once: true });
-});
+    
+    // Update status display
+    if (audioStatus && currentSong && currentMode) {
+      audioStatus.style.display = 'block';
+      currentSong.textContent = 'audio.mp3';
+      currentMode.textContent = 'Regular Mode 📅';
+    }
+    
+    birthdayAudio.play().catch(() => {
+      console.log('Regular audio autoplay blocked, waiting for user click');
+      // autoplay blocked – wait for user interaction
+      document.body.addEventListener("click", () => {
+        console.log('User clicked, starting regular audio');
+        birthdayAudio.muted = false;
+        birthdayAudio.play();
+      }, { once: true });
+    });
+  }
 
   /* ---------- FLIP CLOCK COUNTDOWN ---------- */
   let previousValues = { days: '', hours: '', minutes: '', seconds: '' };
@@ -237,7 +302,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setInterval(updateCountdown, 1000);
 
   /* ---------- EMOJI RAIN ---------- */
-  const emoji = isBirthday ? "🌻" : "💖";
+  const emoji = (isBirthday || simulateBirthday) ? "🌼" : "🌻";
   function createFallingEmoji() {
     const el = document.createElement("div");
     el.classList.add("falling");
@@ -317,7 +382,99 @@ document.addEventListener("DOMContentLoaded", () => {
     fireworks = [];
   }
 
-  if (isBirthday || simulateBirthday) { startCelebration(); }
+  /* ---------- POLAROID FUNCTIONALITY ---------- */
+  function loadAndDisplayPolaroids() {
+    // Direct data loading - no fetch needed
+    const polaroids = [
+      {
+        id: 1,
+        name: "Sayan",
+        image: "images/sayan.jpg",
+        message: "Happy Birthday Dishu <3 May you achieve every success your heart desires. I'll be with you every step of the way—through thick and thin, as your constant companion, your biggest supporter, and your forever love"
+      },
+      {
+        id: 2,
+        name: "Anindita",
+        image: "images/anindita.jpg",
+        message: "Happy Birthday Dishani. Many many happy returns of the day. To me you're a very strong and sorted woman to look up to. May god bless you 🙏 wish you love and light 💫❤️"
+      },
+      {
+        id: 3,
+        name: "Shankhadeep",
+        image: "images/shankhadeep.jpg",
+        message: "Cheers to more fun, more memories and cake! Happy birthday. Jeo hazaro saal!!"
+      },
+      {
+        id: 4,
+        name: "Sam",
+        image: "images/sam.jpg",
+        message: "Hey \"D\" - the awesome lady. It was long journey from Class 2 to today...but feels like just yesterday. Always know you as the jolly person with countless memories. The little girl from tuition and those tuition rides to today's elegant lady, I have seen it all. From the chumpy face look with oily hair to the most gorgeous woman look and many more. It always felt like fresh air while vibing with u. And seeing u taking big leaps in your life makes me so happy and proud together. Always Keep smiling dear...keep rising and shining. Many many happy birthday and happy returns of the day Dishni. May god bless u with all the success and happiness that u deserve. 🎉💐🫶🏻"
+      }
+
+    ];
+    displayPolaroids(polaroids);
+  }
+
+  function displayPolaroids(polaroids) {
+    const polaroidSection = document.getElementById('polaroid-section');
+    const polaroidContainer = document.getElementById('polaroid-container');
+    
+    if (!polaroidSection || !polaroidContainer) return;
+    
+    polaroidContainer.innerHTML = '';
+    
+    polaroids.forEach((polaroid, index) => {
+      const polaroidCard = document.createElement('div');
+      polaroidCard.className = 'polaroid';
+      polaroidCard.style.animationDelay = `${index * 0.2}s`;
+      
+      // Create image
+      const img = document.createElement('img');
+      img.className = 'polaroid-image';
+      img.alt = polaroid.name;
+      img.src = polaroid.image;
+      
+      // Fallback if image fails to load
+      img.onerror = function() {
+        this.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(`
+          <svg width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+            <rect width="100%" height="100%" fill="#f0f8ff"/>
+            <text x="50%" y="40%" font-family="Arial, sans-serif" font-size="20" fill="#337" text-anchor="middle" dy=".3em">📸</text>
+            <text x="50%" y="60%" font-family="Arial, sans-serif" font-size="14" fill="#666" text-anchor="middle" dy=".3em">${polaroid.name}</text>
+            <text x="50%" y="75%" font-family="Arial, sans-serif" font-size="12" fill="#999" text-anchor="middle" dy=".3em">Image Not Found</text>
+          </svg>
+        `);
+      };
+      
+      // Create name and message
+      const nameDiv = document.createElement('div');
+      nameDiv.className = 'polaroid-name';
+      nameDiv.textContent = polaroid.name;
+      
+      const messageDiv = document.createElement('div');
+      messageDiv.className = 'polaroid-message';
+      messageDiv.textContent = polaroid.message;
+      
+      // Append elements
+      polaroidCard.appendChild(img);
+      polaroidCard.appendChild(nameDiv);
+      polaroidCard.appendChild(messageDiv);
+      polaroidContainer.appendChild(polaroidCard);
+    });
+    
+    polaroidSection.style.display = 'block';
+  }
+
+  if (isBirthday || simulateBirthday) { 
+    startCelebration(); 
+    // Hide the contribution section on birthday
+    const contributionSection = document.getElementById("contribution-section");
+    if (contributionSection) {
+      contributionSection.style.display = "none";
+    }
+    // Show polaroids
+    loadAndDisplayPolaroids();
+  }
   modalCloseBtn.addEventListener("click", stopCelebration);
 });
 
@@ -417,8 +574,9 @@ addAnotherBtn.addEventListener("click", () => {
   contributionForm.style.display = "block";
 });
 
-// ── Show memories only on 15 July ─────────────────────────
+// ── Show memories only on 15 July ─────────────────────────
 /*if (isBirthday || simulateBirthday) {
   contributionSection.style.display = "none";
   displayMemories();
 }*/
+
