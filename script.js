@@ -409,6 +409,12 @@ document.addEventListener("DOMContentLoaded", () => {
         name: "Sam",
         image: "images/sam.jpg",
         message: "Hey \"D\" - the awesome lady. It was long journey from Class 2 to today...but feels like just yesterday. Always know you as the jolly person with countless memories. The little girl from tuition and those tuition rides to today's elegant lady, I have seen it all. From the chumpy face look with oily hair to the most gorgeous woman look and many more. It always felt like fresh air while vibing with u. And seeing u taking big leaps in your life makes me so happy and proud together. Always Keep smiling dear...keep rising and shining. Many many happy birthday and happy returns of the day Dishni. May god bless u with all the success and happiness that u deserve. 🎉💐🫶🏻"
+      },
+      {
+        id: 5,
+        name: "Sudeshna Biswas",
+        image: "images/sudeshna.jpg",
+        message: "Happiest birthday dii.. ❤️ stay blessed and enjoy your day😍 though i didn’t met you earlier but whenever we met from then to now you act as my di.. you guide me in every possible ways especially when i was going through my bad days 🥺 i love you ❤️"
       }
 
     ];
