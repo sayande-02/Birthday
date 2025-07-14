@@ -415,6 +415,18 @@ document.addEventListener("DOMContentLoaded", () => {
         name: "Sudeshna Biswas",
         image: "images/sudeshna.jpg",
         message: "Happiest birthday dii.. ❤️ stay blessed and enjoy your day😍 though i didn’t met you earlier but whenever we met from then to now you act as my di.. you guide me in every possible ways especially when i was going through my bad days 🥺 i love you ❤️"
+      },
+      {
+        id: 6,
+        name: "Indrila",
+        image: "images/indrila.jpg",
+        message: "Happy Birthday, Puchu! 💅✨ Another year of being the drama, the main character, and the legend in your own mind! Keep slaying, keep shining, and please—try not to outshine the candles on your cake this year. 😘 Stay fabulous, you unstoppable sass queen! 🎉👑🥰"
+      },
+      {
+        id: 7,
+        name: "Roku Da",
+        image: "images/rokuda.jpg",
+        message: "Happy Birthday, Puchuu! 🎉 You’re like a fine wine — you get better with age… Hope your day is as fabulous and extra as you are! 🎂👑"
       }
 
     ];
